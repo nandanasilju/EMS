@@ -1,33 +1,34 @@
-import React from 'react'  //rfce
-import { Link } from 'react-router-dom'; // ✅ Add this line
-
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Header() {
   return (
-    <div>
-      <Navbar expand="lg" bg="primary" variant="dark" sticky="top" className="shadow-sm">
+    <header>
+      <Navbar expand="lg" bg="light" variant="light" sticky="top" className="shadow-sm py-3 border-bottom">
         <Container>
-          <Navbar.Brand as={Link} to="/">Employee Managment System</Navbar.Brand>
+
+          {/* App Name */}
+          <Navbar.Brand as={Link} to="/" className="fw-bold fs-3" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            Employee Management System
+          </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
-            <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/">Home</Nav.Link>
-              <Nav.Link as={Link} to="/login">Login</Nav.Link>
-              <Nav.Link as={Link} to="/register">Register</Nav.Link>
-              <Nav.Link as={Link} to="/dashboard">DashBoard</Nav.Link>
-              <NavDropdown title="More" id="basic-nav-dropdown">
-                <NavDropdown.Divider />
-              </NavDropdown>
+            <Nav className="ms-auto d-flex align-items-center gap-4">
+              <Nav.Link as={Link} to="/" className="text-dark fw-semibold" style={{ fontFamily: 'Poppins, sans-serif' }}>Home</Nav.Link>
+              <Nav.Link as={Link} to="/login" className="text-dark fw-semibold" style={{ fontFamily: 'Poppins, sans-serif' }}>Login</Nav.Link>
+              <Nav.Link as={Link} to="/register" className="text-dark fw-semibold" style={{ fontFamily: 'Poppins, sans-serif' }}>Register</Nav.Link>
+              <Nav.Link as={Link} to="/dashboard" className="text-dark fw-semibold" style={{ fontFamily: 'Poppins, sans-serif' }}>Dashboard</Nav.Link>
             </Nav>
           </Navbar.Collapse>
+          
         </Container>
       </Navbar>
-    </div>
-  )
+    </header>
+  );
 }
 
 export default Header;
