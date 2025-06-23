@@ -9,12 +9,12 @@ function Add({ refresh, editData, setEditData }) {
 
   const handleClose = () => {
     setShow(false);
-    setEditData(null); // Clear edit data
-    clearForm(); // Clear form inputs
+    setEditData(null);
+    clearForm();
   };
 
   const handleShow = () => {
-    clearForm(); // Clear form before showing modal for Add
+    clearForm();
     setShow(true);
   };
 
@@ -25,7 +25,6 @@ function Add({ refresh, editData, setEditData }) {
   const [position, setPosition] = useState("");
   const [salary, setSalary] = useState("");
 
-  // Pre-fill the form in Edit mode
   useEffect(() => {
     if (editData) {
       setId(editData.id);
@@ -38,7 +37,6 @@ function Add({ refresh, editData, setEditData }) {
     }
   }, [editData]);
 
-  // Function to clear form fields
   const clearForm = () => {
     setId("");
     setEmpname("");
@@ -53,17 +51,15 @@ function Add({ refresh, editData, setEditData }) {
 
     try {
       if (editData) {
-        // Update employee
         const result = await updateEmployeeAPI(body);
         alert(result.data.message);
       } else {
-        // Add new employee
         const result = await addEmployeeAPI(body);
         alert(result.data.message);
       }
 
       handleClose();
-      refresh(); // Refresh the employee list
+      refresh();
 
     } catch (err) {
       console.error(err);
@@ -72,65 +68,103 @@ function Add({ refresh, editData, setEditData }) {
 
   return (
     <div>
-      <button onClick={handleShow} style={{ float: 'right' }} className='btn btn-success my-4'>
-        Add
-      </button>
+      <div className='text-end'>
+        <button
+          onClick={handleShow}
+          className='btn btn-lg'
+          style={{
+            backgroundColor: '#FF6F61',
+            border: 'none',
+            color: 'white',
+            padding: '10px 30px',
+            borderRadius: '30px',
+            fontWeight: '600',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseOver={e => e.target.style.backgroundColor = '#FF4C4C'}
+          onMouseOut={e => e.target.style.backgroundColor = '#FF6F61'}
+        >
+          Add Employee
+        </button>
+      </div>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{editData ? 'Edit Employee' : 'Add Employee'}</Modal.Title>
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton style={{ backgroundColor: '#FF6F61', color: 'white' }}>
+          <Modal.Title>{editData ? 'Edit Employee' : 'Add New Employee'}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form.Control
-            value={id}
-            onChange={e => setId(e.target.value)}
-            type="text"
-            placeholder="Employee Id"
-            disabled={editData ? true : false}
-          />
-          <br />
-          <Form.Control
-            value={empname}
-            onChange={e => setEmpname(e.target.value)}
-            type="text"
-            placeholder="Employee Name"
-          />
-          <br />
-          <Form.Control
-            value={age}
-            onChange={e => setAge(e.target.value)}
-            type="text"
-            placeholder="Employee Age"
-          />
-          <br />
-          <Form.Control
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            type="text"
-            placeholder="Title"
-          />
-          <br />
-          <Form.Control
-            value={position}
-            onChange={e => setPosition(e.target.value)}
-            type="text"
-            placeholder="Position"
-          />
-          <br />
-          <Form.Control
-            value={salary}
-            onChange={e => setSalary(e.target.value)}
-            type="text"
-            placeholder="Salary"
-          />
-          <br />
+        <Modal.Body style={{ fontFamily: 'Poppins, sans-serif' }}>
+          <Form.Group className="mb-3">
+            <Form.Control
+              value={id}
+              onChange={e => setId(e.target.value)}
+              type="text"
+              placeholder="Employee ID"
+              disabled={editData ? true : false}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Control
+              value={empname}
+              onChange={e => setEmpname(e.target.value)}
+              type="text"
+              placeholder="Employee Name"
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Control
+              value={age}
+              onChange={e => setAge(e.target.value)}
+              type="text"
+              placeholder="Employee Age"
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Control
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              type="text"
+              placeholder="Title"
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Control
+              value={position}
+              onChange={e => setPosition(e.target.value)}
+              type="text"
+              placeholder="Position"
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Control
+              value={salary}
+              onChange={e => setSalary(e.target.value)}
+              type="text"
+              placeholder="Salary"
+            />
+          </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cancel
           </Button>
-          <Button onClick={handleAddOrUpdate} variant="primary">
-            {editData ? 'Update' : 'Save Changes'}
+          <Button
+            variant="primary"
+            onClick={handleAddOrUpdate}
+            style={{
+              backgroundColor: '#FF6F61',
+              border: 'none',
+              fontWeight: '600',
+              padding: '8px 25px'
+            }}
+            onMouseOver={e => e.target.style.backgroundColor = '#FF4C4C'}
+            onMouseOut={e => e.target.style.backgroundColor = '#FF6F61'}
+          >
+            {editData ? 'Update' : 'Save'}
           </Button>
         </Modal.Footer>
       </Modal>
