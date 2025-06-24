@@ -11,7 +11,7 @@ function Login() {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        const storedUser = JSON.parse(sessionStorage.getItem("userDetails"));
+        const storedUser = JSON.parse(localStorage.getItem("userDetails"));
         if (storedUser && storedUser.email === user.email && storedUser.password === user.password) {
             alert("Login Successful");
             navigate('/dashboard');

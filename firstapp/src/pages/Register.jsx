@@ -12,7 +12,7 @@ function Register() {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        sessionStorage.setItem("userDetails", JSON.stringify(user));
+        localStorage.setItem("userDetails", JSON.stringify(user));
         alert("User Registered Successfully");
         navigate('/login');
     }
