@@ -1,1 +1,1 @@
-export const serverUrl = 'http://localhost:3000'
+export const serverUrl = 'https://ems-v3vo.onrender.com'
