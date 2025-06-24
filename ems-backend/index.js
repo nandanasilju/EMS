@@ -1,14 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const employeeRoutes = require('./routes/employeeRoutes');
-const db = require('./DB/connectionString');
+require('./DB/connectionString'); // Database connection file
 
 const app = express();
 
-// Correct Port Handling for Render
-const PORT = process.env.PORT || 3000;
-
-// Allow requests from any origin (for development)
+// Middleware
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -17,15 +14,16 @@ app.use(cors({
 
 app.use(express.json());
 
-// Home Route to Fix "Cannot GET /"
+// Optional: To verify the server is running
 app.get('/', (req, res) => {
-  res.send('EMS Backend is Running 🚀');
+  res.send({ message: "EMS Backend Running ✅" });
 });
 
-// API Routes
-app.use('/api/employees', employeeRoutes);
+// Correctly register API routes
+app.use('/', employeeRoutes);
 
-// Start Server
+// Server Listening on Render's port
+const PORT = process.env.PORT || 3000; // Important for Render
 app.listen(PORT, () => {
   console.log(`EMS server started on port ${PORT}`);
 });
