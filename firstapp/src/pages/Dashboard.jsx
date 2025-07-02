@@ -95,13 +95,7 @@ function Dashboard() {
                     <td>{item.position}</td>
                     <td>{item.salary}</td>
                     <td>
-                      <button
-                        onClick={() => handleDelete(item.id)}
-                        className='btn btn-danger btn-sm me-2'
-                        style={{ borderRadius: '20px', padding: '6px 18px' }}
-                      >
-                        Delete
-                      </button>
+                      
                       <button
                         onClick={() => setEditData(item)}
                         className='btn btn-warning btn-sm'
